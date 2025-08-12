@@ -10,16 +10,27 @@
         <th scope="col">Selected</th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let product of products">
-        <th scope="row">{{ product.id }}</th>
-        <td>{{ product.name }}</td>
-        <td>{{ product.price }}</td>
-        <td>
-          <span *ngIf="product.selected" class="badge bg-success">Yes</span>
-          <span *ngIf="!product.selected" class="badge bg-secondary">No</span>
-        </td>
-      </tr>
-    </tbody>
+    @if(products.length > 0) {
+        <tbody>
+            <tr *ngFor="let product of products">
+              <th scope="row">{{ product.id }}</th>
+              <td>{{ product.name }}</td>
+              <td>{{ product.price }}</td>
+              <td>
+                @if (product.selected) {
+                  <i class="bi bi-check-circle-fill text-success"></i>
+                } @else {
+                  <i class="bi bi-circle text-secondary"></i>
+                }
+              </td>
+              <td>
+                <button (click)="handleDelete(product.id)" class="btn btn-danger btn-sm" title="Delete">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+        </tbody>
+    }
+    
   </table>
 </div>

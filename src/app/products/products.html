@@ -1,36 +1,38 @@
-<div class="container mt-4">
-  <h2>Products</h2>
-  <p>Welcome to the products page! Here you will find a list of our amazing products.</p>
-  <table class="table table-striped mt-3">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Price ($)</th>
-        <th scope="col">Selected</th>
-      </tr>
-    </thead>
-    @if(products.length > 0) {
-        <tbody>
-            <tr *ngFor="let product of products">
-              <th scope="row">{{ product.id }}</th>
-              <td>{{ product.name }}</td>
-              <td>{{ product.price }}</td>
-              <td>
-                @if (product.selected) {
-                  <i class="bi bi-check-circle-fill text-success"></i>
-                } @else {
-                  <i class="bi bi-circle text-secondary"></i>
-                }
-              </td>
-              <td>
-                <button (click)="handleDelete(product.id)" class="btn btn-danger btn-sm" title="Delete">
-                  <i class="bi bi-trash"></i>
-                </button>
-              </td>
-            </tr>
-        </tbody>
-    }
-    
-  </table>
+<div class="products-container">
+  <div class="products-header">
+    <h2>Products</h2>
+    <p class="products-subtitle">A curated collection of our amazing products</p>
+  </div>
+  
+  @if(products.length > 0) {
+    <div class="products-grid">
+      <div class="products-grid-header">
+        <div class="grid-cell header-cell">ID</div>
+        <div class="grid-cell header-cell">Name</div>
+        <div class="grid-cell header-cell">Price</div>
+        <div class="grid-cell header-cell">Status</div>
+        <div class="grid-cell header-cell">Actions</div>
+      </div>
+      
+      <div class="products-list">
+        <div class="product-row" *ngFor="let product of products">
+          <div class="grid-cell">{{ product.id }}</div>
+          <div class="grid-cell product-name">{{ product.title }}</div>
+          <div class="grid-cell product-price">${{ product.price }}</div>
+          <div class="grid-cell status-cell">
+            <span class="status-indicator" [class.selected]="product.selected"></span>
+          </div>
+          <div class="grid-cell actions-cell">
+            <button (click)="handleDelete(product.id)" class="delete-btn" title="Delete">
+              ×
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="empty-state">
+      <p>No products available</p>
+    </div>
+  }
 </div>
